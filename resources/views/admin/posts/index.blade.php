@@ -16,7 +16,7 @@
             @forelse ($posts as $post)
                 
                 <tr>
-                    <th scope="row">{{$post->title}}</th>
+                    <th scope="row"><a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">{{$post->title}}</a></th>
                     <td>{{$post->author}}</td>
                     <td>{{$post->post_date}}</td>
                 </tr>
