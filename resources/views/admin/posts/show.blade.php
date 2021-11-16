@@ -11,7 +11,14 @@
             <div class="d-flex">
                 <img src="{{$post->image_url}}" class="col-4" alt="{{$post->title}}">
                 <div class="card-header col-8">
-                    <h4 class="card-title">{{$post->title}}</h4>     
+                    <h4 class="card-title">{{$post->title}}</h4>    
+                    <p>
+                        @if ($post->category)
+                            {{$post->category->name}}
+                        @else
+                            {{'N.D'}}
+                        @endif
+                    </p> 
                     <p class="card-text">Author: {{$post->author}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->post_date}}</small></p>
                 </div>

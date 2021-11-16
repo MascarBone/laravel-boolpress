@@ -51,7 +51,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'title' => 'required|string|unique:posts|max:255',
+            'author' => 'required|string|max:50',
+            'content' => 'required|string|min:10',
+            'category_id' => 'nullable',
+        ],
+        [
+            'required' => 'You have to fill correctly :attribute',
+            'title.required' => 'The post need a Title',
+            'author.max' => 'Too many digits for the author field',
+            'content.min' => 'You have to insert more words in the post',
+        ]);
+
         $post = new Post();
 
         $post->fill($request->all());        
@@ -81,7 +93,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post','categories'));
     }
 
     /**
@@ -93,6 +107,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title' => 'required|string|unique:posts|max:255',
+            'author' => 'required|string|max:50',
+            'content' => 'required|string|min:10',
+            'category_id' => 'nullable',
+        ],
+        [
+            'required' => 'You have to fill correctly :attribute',
+            'title.required' => 'The post need a Title',
+            'author.max' => 'Too many digits for the author field',
+            'content.min' => 'You have to insert more words in the post',
+        ]);
+
         $post->update($request->all());
         $post->slug = Str::slug($post->title, '-');
         $post->save();

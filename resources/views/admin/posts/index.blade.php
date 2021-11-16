@@ -16,6 +16,7 @@
             <thead>
                 <tr>
                     <th scope="col">Post Title</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Post Author</th>
                     <th scope="col">Post Date</th>                    
                     <th scope="col">Edit</th>
@@ -26,7 +27,14 @@
                     
                     <tr>
                         <th scope="row"><a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">{{$post->title}}</a></th>
-                        <td>{{$post->author}}</td>
+                        <td>
+                            @if ($post->category)
+                                {{$post->category->name}}
+                            @else
+                                {{'N.D'}}
+                            @endif
+                        </td>
+                        <td>{{$post->author}}</td>  
                         <td>{{$post->post_date}}</td>
                         <td><a href="{{route('admin.posts.edit', ['post'=>$post->id])}}">EDIT</a></td>
                     </tr>
