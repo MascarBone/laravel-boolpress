@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Post;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -36,7 +38,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create', ['post'=> null]);
     }
 
     /**
@@ -47,7 +49,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $post = new Post();
+
+        $post->fill($request->all());        
+        $post->post_date = Carbon::now();
+        $post->slug = Str::slug($post->title, '-');
+        $post->save();
+        // dd($post);
+        return redirect()->route('admin.posts.show', compact('post'));
     }
 
     /**
@@ -64,24 +74,28 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->all());
+        $post->slug = Str::slug($post->title, '-');
+        $post->save();
+
+        return redirect()->route('admin.posts.show', ['post'=>$post->id]);
     }
 
     /**
