@@ -2,7 +2,6 @@
 
 @section('content')
 
-    
 <form action="{{ $post ? route('admin.posts.update', ['post'=>$post->id]) : route('admin.posts.store') }}" method="POST">
     @csrf
     @isset($post)
@@ -40,6 +39,16 @@
                 <label for="image_url" class="form-label">Insert an image url</label>
                 <input type="text" id="image_url" name="image_url" class="form-control" value="@isset($post){{$post->image_url}}
                 @endisset">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="category_id" class="form-label">Select a category</label>
+                <select id="category_id" name="category_id">
+                    <option value="">No Category</option>
+                    @foreach ($categories as $category)                        
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach 
+
+                </select>
             </div>
             <div class="col-12 mb-3">
                 <button class="btn btn-primary" type="submit">{{ $post ? 'EDIT' : 'Create' }}</button>               
