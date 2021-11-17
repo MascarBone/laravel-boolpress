@@ -34,10 +34,10 @@
                 <label for="title" class="form-label">Title of your Post</label>
                 <input type="text" id="title" name="title" class="form-control" value="{{$post ? old('title', $post->title) : old('title')}}">
             </div>
-            <div class="col-12 mb-3">
-                <label for="author" class="form-label">Author of the Post</label>
-                <input type="text" id="author" name="author" class="form-control" value="{{$post ? old('author', $post->author) : old('author')}}">
-            </div>
+            {{-- <div class="col-12 mb-3">
+                <label for="user_id" class="form-label">Author of the Post</label>
+                <input type="text" id="user_id" name="user_id" class="form-control" value="{{$post ? old('user_id', $post->user_id) : old('user_id')}}">
+            </div> --}}
             <div class="col-12 mb-3">
                 <label for="content" class="form-label">Content of your Post</label>
                 <textarea type="text" id="content" name="content" class="form-control">{{$post ? old('content', $post->content) : old('content')}}</textarea>

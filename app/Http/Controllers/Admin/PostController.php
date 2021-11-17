@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
@@ -53,21 +54,22 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|unique:posts|max:255',
-            'author' => 'required|string|max:50',
+            // 'author' => 'required|string|max:50',
             'content' => 'required|string|min:10',
             'category_id' => 'nullable',
         ],
         [
             'required' => 'You have to fill correctly :attribute',
             'title.required' => 'The post need a Title',
-            'author.max' => 'Too many digits for the author field',
+            // 'author.max' => 'Too many digits for the author field',
             'content.min' => 'You have to insert more words in the post',
         ]);
+        $data = $request->all();
+        $data['post_date'] = Carbon::now();
+        $data['user_id'] = Auth::user()->id;
 
         $post = new Post();
-
-        $post->fill($request->all());        
-        $post->post_date = Carbon::now();
+        $post->fill($data);
         $post->slug = Str::slug($post->title, '-');
         $post->save();
         // dd($post);
@@ -109,14 +111,14 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|unique:posts|max:255',
-            'author' => 'required|string|max:50',
+            // 'author' => 'required|string|max:50',
             'content' => 'required|string|min:10',
             'category_id' => 'nullable',
         ],
         [
             'required' => 'You have to fill correctly :attribute',
             'title.required' => 'The post need a Title',
-            'author.max' => 'Too many digits for the author field',
+            // 'author.max' => 'Too many digits for the author field',
             'content.min' => 'You have to insert more words in the post',
         ]);
 

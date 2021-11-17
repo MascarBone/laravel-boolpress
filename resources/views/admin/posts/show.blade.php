@@ -19,7 +19,7 @@
                             {{'N.D'}}
                         @endif
                     </p> 
-                    <p class="card-text">Author: {{$post->author}}</p>
+                    <p class="card-text">Author: {{$post->author->name}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->post_date}}</small></p>
                 </div>
             </div>
