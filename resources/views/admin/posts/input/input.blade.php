@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+     
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -50,11 +50,11 @@
                 <label for="category_id" class="form-label">Select a category</label>
                 <select id="category_id" name="category_id">
                     <option value="">No Category</option>
-                    @foreach ($categories as $category)                        
+                    @foreach ($categories as $category)                  
                         <option
-                        @if ($category->id == $post->category_id)
-                            selected
-                        @endif
+                        @isset($post)
+                            @if ($category->id == $post->category_id) selected @endif
+                        @endisset
                         @if (old('category_id') == $category->id) selected @endif
                         value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach 
