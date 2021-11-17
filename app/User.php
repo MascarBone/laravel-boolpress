@@ -40,6 +40,6 @@ class User extends Authenticatable
     //Relation One to One with UserInfo
     public function userInfo ()
     {
-        return $this->hasOne('App\Models\UserInfo')
+        return $this->hasOne('App\Models\UserInfo');
     }
 }
