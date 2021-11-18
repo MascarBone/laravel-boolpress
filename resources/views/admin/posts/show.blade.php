@@ -22,10 +22,11 @@
                     <p class="card-text">Author: {{$post->author->name}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->post_date}}</small></p>
                     @if(Auth::user()->id == $post->author->id)
-                        <form action="{{route('admin.posts.destroy',['post'=>$post])}}" method="POST" class="text-right">
+                    {{-- {{route('admin.posts.destroy',['post'=>$post])}} --}}
+                        <form id="form-delete" action="" method="POST" data="{{$post->title}}" class="text-right">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger">Elimina</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     @endif
                 </div>
@@ -36,4 +37,19 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script>
+        const info = document.querySelector('#form-delete');
+        
+        console.log(info);
+        info.addEventListener('submit', function(event){
+            event.preventDefault();
+            const titolo = info.getAttribute('data');
+            const confirm = window.confirm('Stai cercando di eliminare: ' + titolo);
+            if(confirm) this.submit();
+        }, false);
+        
+    </script>
 @endsection
