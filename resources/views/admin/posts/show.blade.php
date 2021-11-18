@@ -21,6 +21,13 @@
                     </p> 
                     <p class="card-text">Author: {{$post->author->name}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->post_date}}</small></p>
+                    @if(Auth::user()->id == $post->author->id)
+                        <form action="{{route('admin.posts.destroy',['post'=>$post])}}" method="POST" class="text-right">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">Elimina</button>
+                        </form>
+                    @endif
                 </div>
             </div>
             <div class="card-body">

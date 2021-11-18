@@ -5,8 +5,15 @@
 <div class="container">
 
     <div class="row mb-3">
-        <div class="col-12">
+        <div class="col-12 mb-3">
             <a href="{{route('admin.posts.create')}}" class="btn btn-secondary">Create a new POST</a>
+        </div>
+        <div class="col-12">
+            @if (session('info'))
+                <div class="col-12 alert alert-success">
+                    <h3>"{{ session('info') }}" deleted with success</h3>
+                </div>
+            @endif
         </div>
     </div>
 
