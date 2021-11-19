@@ -18,7 +18,14 @@
                         @else
                             {{'N.D'}}
                         @endif
-                    </p> 
+                    </p>
+                    {{-- <p>
+                        @forelse ($tags as $tag)                            
+                            <span class="badge text-white" style="background-color: ">cccc</span>
+                        @empty
+                            NO Tags
+                        @endforelse
+                    </p> --}}
                     <p class="card-text">Author: {{$post->author->name}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->post_date}}</small></p>
                     @if(Auth::user()->id == $post->author->id)

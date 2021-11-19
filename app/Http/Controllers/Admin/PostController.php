@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Post;
 use Carbon\Carbon;
 
@@ -40,8 +41,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.create', ['post'=> null, 'categories' => $categories]);
+        return view('admin.posts.create', ['post'=> null, 'categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -52,6 +54,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'title' => 'required|string|unique:posts|max:255',
             // 'author' => 'required|string|max:50',
@@ -72,7 +75,9 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');
         $post->save();
-        // dd($post);
+
+        if(array_key_exists('tags',$data)) $post->tags()->attach($data['tags']);
+        
         return redirect()->route('admin.posts.show', compact('post'));
     }
 
@@ -84,6 +89,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // dd($post->tags->toArray());
+        // if (array_key_exists);
         return view('admin.posts.show', compact('post'));
     }
 
@@ -95,9 +102,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post','categories'));
+        $tagsPost = $post->tags->pluck('id')->toArray();
+        // dd($tagsPost);
+        return view('admin.posts.edit', compact('post','categories','tags','tagsPost'));
     }
 
     /**
@@ -110,7 +119,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'title' => 'required|string|unique:posts|max:255',
+            'title' => 'required|string|max:255',
             // 'author' => 'required|string|max:50',
             'content' => 'required|string|min:10',
             'category_id' => 'nullable',
@@ -121,10 +130,12 @@ class PostController extends Controller
             // 'author.max' => 'Too many digits for the author field',
             'content.min' => 'You have to insert more words in the post',
         ]);
-
-        $post->update($request->all());
+        $data = $request->all();
+        $post->update($data);
         $post->slug = Str::slug($post->title, '-');
         $post->save();
+
+        if(array_key_exists('tags',$data)) $post->tags()->sync($data['tags']);
 
         return redirect()->route('admin.posts.show', ['post'=>$post->id]);
     }
