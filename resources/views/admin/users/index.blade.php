@@ -5,7 +5,7 @@
 
     <div class="row mb-3">
         <div class="col-12 mb-3">
-            <a href="{{route('admin.posts.create')}}" class="btn btn-secondary">Create a new POST</a>
+            <a href="{{route('admin.users.create')}}" class="btn btn-secondary">Create a new User</a>
         </div>
         <div class="col-12">
             @if (session('info'))
@@ -35,11 +35,10 @@
                         <td>{{$user->id}}</td>  
                         <td>
                             @foreach ($user->roles as $role)
-                                <span>{{$role->level}}</span>
+                                <span>{{$role->name}}</span>
                             @endforeach
                         </td>
-                        <td></td>
-                        {{-- <td><a href="{{route('admin.users.edit', ['user'=>$user->id])}}">EDIT</a></td> --}}
+                        <td><a href="{{route('admin.users.edit', ['user'=>$user->id])}}">EDIT</a></td>
                     </tr>
     
                 @empty

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Role;
 use App\User;
 
 class UserController extends Controller
@@ -25,8 +26,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {        
+        $roles = Role::all();
+        return view('admin.users.create', ['user'=>null, 'roles' => $roles, 'userRoles' => [] ]);
     }
 
     /**
@@ -55,12 +57,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        $userRoles = $user->roles->pluck('id')->toArray();
+        return view('admin.users.edit', compact('user','roles','userRoles'));
     }
 
     /**
