@@ -9,8 +9,9 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Post;
+
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
+
 class PostController extends Controller
 {
     /**
