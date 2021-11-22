@@ -65,13 +65,14 @@
                 <h4>Tags</h3>
                     @foreach ($tags as $tag)
                     <div class="form-check-inline">
+                        
                         <input type="checkbox" name="tags[]" value="{{$tag->id}}" class="form-check-input" id="tag-{{$tag->id}}" @if (in_array($tag->id, $tagsPost)) checked @endif>
                         {{-- @isset($post)
                             @if ($tag->id == $post->tags->id) checked @endif
                         @endisset --}}
                         {{-- @if (old('tag_id') == $tag->id) checked @endif
                         value="{{$tag->id}}">                         --}}
-                        <label for="tag-{{$tag->id}}" class="form-check-label">{{$tag->name}}</label>
+                        <label for="tag-{{$tag->id}}" style="background-color: {{$tag->color}}" class="badge form-check-label">{{$tag->name}}</label>
                     </div>                  
                     @endforeach 
 

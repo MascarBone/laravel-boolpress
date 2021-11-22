@@ -10,7 +10,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Post;
 use Carbon\Carbon;
-
+use Illuminate\Support\Arr;
 class PostController extends Controller
 {
     /**
@@ -43,7 +43,7 @@ class PostController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.create', ['post'=> null, 'categories' => $categories, 'tags' => $tags]);
+        return view('admin.posts.create', ['post'=> null, 'categories' => $categories, 'tags' => $tags, 'tagsPost' => [] ]);
     }
 
     /**
@@ -54,7 +54,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request->all()['tags']);
         $request->validate([
             'title' => 'required|string|unique:posts|max:255',
             // 'author' => 'required|string|max:50',
@@ -89,8 +89,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        // dd($post->tags->toArray());
-        // if (array_key_exists);
         return view('admin.posts.show', compact('post'));
     }
 

@@ -19,13 +19,13 @@
                             {{'N.D'}}
                         @endif
                     </p>
-                    {{-- <p>
-                        @forelse ($tags as $tag)                            
-                            <span class="badge text-white" style="background-color: ">cccc</span>
+                    <p>
+                        @forelse ($post->tags as $tag)                            
+                            <span class="badge" style="background-color: {{$tag->color}} ">{{$tag->name}}</span>
                         @empty
                             NO Tags
                         @endforelse
-                    </p> --}}
+                    </p>
                     <p class="card-text">Author: {{$post->author->name}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->post_date}}</small></p>
                     @if(Auth::user()->id == $post->author->id)
