@@ -23,8 +23,20 @@ Route::namespace('Admin')
 ->prefix('admin')
 ->name('admin.')
 ->group( function() {
+    Route::resource('posts', PostController::class)->only([
+        'index','show'
+    ]);
+});
+
+Route::middleware('auth')
+->namespace('Admin')
+->prefix('admin')
+->name('admin.')
+->group( function() {
     
     Route::get('home', 'HomeController@index')->name('home');
-    Route::resource('posts', PostController::class);
+    Route::resource('posts', PostController::class)->except([
+        'index','show'
+    ]);
     Route::resource('users', UserController::class);
 });
