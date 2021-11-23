@@ -19,11 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::namespace('Admin')
-->prefix('admin')
-->name('admin.')
+Route::namespace('Guests')
+->prefix('guests')
+->name('guests.')
 ->group( function() {
-    Route::resource('posts', PostController::class)->only([
+    Route::resource('/', PostController::class)->only([
         'index','show'
     ]);
 });
@@ -35,8 +35,6 @@ Route::middleware('auth')
 ->group( function() {
     
     Route::get('home', 'HomeController@index')->name('home');
-    Route::resource('posts', PostController::class)->except([
-        'index','show'
-    ]);
+    Route::resource('posts', PostController::class);
     Route::resource('users', UserController::class);
 });
