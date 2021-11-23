@@ -1,31 +1,28 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
+            <Header :title="valore"/>
+            <PostList />
         </div>
     </div>
 </template>
 
 <script>
+    import Header from "./Header.vue";
+    import PostList from "./Posts/PostList.vue";
+
     export default {
         // name: 'App',
         
-        data() {
-            return {
-
-            }
+        components: {
+            Header,
+            PostList,
         },
 
-        mounted() {
-            console.log('Component mounted.')
-        }
+        data() {
+            return {
+                valore : 'posts',
+            }
+        },
     }
 </script>
