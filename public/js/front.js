@@ -2022,6 +2022,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostList',
@@ -2031,15 +2048,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       posts: [],
-      baseURI: 'http://127.0.0.1:8000/api/posts/'
+      baseURI: 'http://127.0.0.1:8000/api/posts/',
+      currentPage: 1,
+      lastPage: null
     };
   },
   methods: {
-    getPostList: function getPostList() {
+    getPostList: function getPostList(nPage) {
       var _this = this;
 
-      axios.get(this.baseURI).then(function (response) {
-        _this.posts = _toConsumableArray(response.data);
+      this.currentPage = nPage;
+      console.log(nPage);
+      axios.get(this.baseURI, {
+        params: {
+          page: nPage
+        }
+      }).then(function (response) {
+        console.log(response.data.data);
+        _this.posts = _toConsumableArray(response.data.data); //Ottengo l'ultima pagina disponibile nelle API
+
+        _this.lastPage = response.data.last_page;
         console.log(_this.posts);
       })["catch"](function (err) {
         console.error(err);
@@ -2047,7 +2075,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   created: function created() {
-    this.getPostList();
+    this.getPostList(this.currentPage);
   }
 });
 
@@ -2645,6 +2673,68 @@ var render = function () {
         ],
         2
       ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "ul",
+          { staticClass: "pagination justify-content-center" },
+          [
+            _vm.currentPage > 1
+              ? _c("li", { staticClass: "page-item" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "page-link",
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPostList(_vm.currentPage - 1)
+                        },
+                      },
+                    },
+                    [_vm._v("Previous")]
+                  ),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.lastPage, function (n) {
+              return _c("li", { key: n, staticClass: "page-item" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "page-link",
+                    on: {
+                      click: function ($event) {
+                        return _vm.getPostList(n)
+                      },
+                    },
+                  },
+                  [_vm._v(_vm._s(n))]
+                ),
+              ])
+            }),
+            _vm._v(" "),
+            _vm.currentPage < _vm.lastPage
+              ? _c("li", { staticClass: "page-item" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "page-link",
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPostList(_vm.currentPage + 1)
+                        },
+                      },
+                    },
+                    [_vm._v("Next")]
+                  ),
+                ])
+              : _vm._e(),
+          ],
+          2
+        ),
+      ]),
     ]),
   ])
 }

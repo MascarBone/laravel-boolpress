@@ -31,7 +31,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // To get only the posts of the current logged user
+        // $posts = Post::where('user_id', Auth::user()->id)->paginate(10);
+        $posts = Post::paginate(10);
         return view ('admin.posts.index', compact('posts'));
     }
 
