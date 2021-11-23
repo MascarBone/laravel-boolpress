@@ -1,12 +1,10 @@
 <template>
     <div class="container">
-        <div class="row">
+        <div v-if="isLoading"  class="row">
             <div class="col-12">
                 <h2>List of Posts</h2>
                 <PostCard v-for="post in posts" :key="post.id" :post="post"/>
             </div>
-        </div>
-        <div class="row">
             <div class="col-12">
                     <ul class="pagination justify-content-center">
                         <li v-if="currentPage > 1" class="page-item">
@@ -22,32 +20,38 @@
                         </li>
                     </ul>
             </div>
+        </div>        
+        <Loader v-else />
+        <div class="row">
+            
         </div>
     </div>
 </template>
 
 <script>
 import PostCard from "./PostCard.vue";
+import Loader from "./Loader.vue";
 
 export default {
     name: 'PostList',
 
     components: {
         PostCard,
+        Loader,
     },
 
     data() {
         return {
             posts: [],
             baseURI: 'http://127.0.0.1:8000/api/posts/',
-            currentPage: 1,
+            isLoading: false,
+            currentPage: null,
             lastPage: null,
         }
     },
 
     methods: {
-        getPostList(nPage){
-            this.currentPage = nPage;          
+        getPostList(nPage){         
             console.log(nPage);
             axios.get(this.baseURI, {
                 params: {
@@ -58,10 +62,16 @@ export default {
                 console.log(response.data.data);
                 this.posts = [...response.data.data];
 
+                //Aggiorno la pagina corrente grazie all'API
+                this.currentPage = response.data.current_page;
                 //Ottengo l'ultima pagina disponibile nelle API
                 this.lastPage = response.data.last_page;
 
                 console.log(this.posts);
+
+                //Aggiornando la variabile a true solo dopo che la chiamata all'API
+                //è stata completata, la pagina viene visualizzata correttamente
+                this.isLoading = true;
             })
             .catch((err) => {
                 console.error(err);
@@ -70,7 +80,7 @@ export default {
     },
 
     created() {
-        this.getPostList(this.currentPage);
+        this.getPostList();
     }
 }
 </script>
