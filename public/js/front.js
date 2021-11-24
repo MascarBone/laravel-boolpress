@@ -2059,9 +2059,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3411,20 +3408,28 @@ var render = function () {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm._l(_vm.lastPage, function (n) {
-                    return _c("li", { key: n, staticClass: "page-item" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "page-link",
-                          on: {
-                            click: function ($event) {
-                              return _vm.getPostList(n)
+                    return _c(
+                      "li",
+                      {
+                        key: n,
+                        staticClass: "page-item",
+                        class: { active: _vm.currentPage === n },
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "page-link",
+                            on: {
+                              click: function ($event) {
+                                return _vm.getPostList(n)
+                              },
                             },
                           },
-                        },
-                        [_vm._v(_vm._s(n))]
-                      ),
-                    ])
+                          [_vm._v(_vm._s(n))]
+                        ),
+                      ]
+                    )
                   }),
                   _vm._v(" "),
                   _vm.currentPage < _vm.lastPage
@@ -3449,8 +3454,6 @@ var render = function () {
             ]),
           ])
         : _c("Loader"),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }),
     ],
     1
   )

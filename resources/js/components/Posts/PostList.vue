@@ -11,7 +11,7 @@
                             <button @click="getPostList(currentPage-1)" class="page-link">Previous</button>
                         </li>
                         
-                        <li v-for="n in lastPage" :key="n" class="page-item">
+                        <li v-for="n in lastPage" :key="n" :class="{ active: currentPage === n} " class="page-item">
                             <button @click="getPostList(n)" class="page-link">{{n}}</button>
                         </li>
 
@@ -22,9 +22,6 @@
             </div>
         </div>        
         <Loader v-else />
-        <div class="row">
-            
-        </div>
     </div>
 </template>
 
