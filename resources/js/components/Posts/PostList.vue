@@ -57,7 +57,7 @@ export default {
             })
             .then((response) => {
                 console.log(response.data.data);
-                this.posts = [...response.data.data];
+                this.posts = response.data.data;
 
                 //Aggiorno la pagina corrente grazie all'API
                 this.currentPage = response.data.current_page;
