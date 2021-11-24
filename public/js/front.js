@@ -1919,10 +1919,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // name: 'App',
+  name: 'App',
   components: {
     Header: _Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     PostList: _Posts_PostList_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -3237,10 +3242,14 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("div"),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row justify-content-center" },
       [
+        _c("div", { staticClass: "col-12 py-3" }),
+        _vm._v(" "),
         _c("Header", { attrs: { title: _vm.valore } }),
         _vm._v(" "),
         _c("PostList"),

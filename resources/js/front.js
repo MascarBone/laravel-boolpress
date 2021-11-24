@@ -8,7 +8,7 @@ window.axios = require('axios');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import App from "./components/App"
+import App from "./components/App";
 
 const app = new Vue({
     el: '#root',
