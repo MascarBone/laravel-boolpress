@@ -9,7 +9,7 @@
 
         <div class="card col-12">            
             <div class="d-flex">
-                <img src="{{$post->image_url}}" class="col-4" alt="{{$post->title}}">
+                <img src="{{ $path . $post->image_url}}" class="col-4" alt="{{$post->title}}">
                 <div class="card-header col-8">
                     <h4 class="card-title">{{$post->title}}</h4>    
                     <p>

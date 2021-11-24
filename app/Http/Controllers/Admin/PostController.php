@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -74,6 +75,13 @@ class PostController extends Controller
         $data['post_date'] = Carbon::now();
         $data['user_id'] = Auth::user()->id;
 
+        //store del file img
+        $image_path = Storage::put('uploads', $data['image']);
+        //nei Fillable abbiamo 'image_url' da dover assegnare
+        $data['image_url'] = $image_path;
+
+        // dd($data);
+
         $post = new Post();
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');
@@ -92,7 +100,14 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show', compact('post'));
+        //Si utilizza $path e la condizione, per settare il percorso che l'img dovrà avere
+        $path = "";
+        if(str_starts_with($post->image_url, 'uploads/'))
+        {
+            $path = asset('storage/') . "/";
+        }
+
+        return view('admin.posts.show', compact('post','path'));
     }
 
     /**

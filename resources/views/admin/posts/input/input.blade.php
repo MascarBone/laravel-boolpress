@@ -12,7 +12,7 @@
     </div>
 @endif
 
-<form action="{{ $post ? route('admin.posts.update', ['post'=>$post->id]) : route('admin.posts.store') }}" method="POST">
+<form action="{{ $post ? route('admin.posts.update', ['post'=>$post->id]) : route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @isset($post)
         @method('PATCH')
@@ -42,10 +42,17 @@
                 <label for="content" class="form-label">Content of your Post</label>
                 <textarea type="text" id="content" name="content" class="form-control">{{$post ? old('content', $post->content) : old('content')}}</textarea>
             </div>
-            <div class="col-12 mb-3">
+
+            {{-- <div class="col-12 mb-3">
                 <label for="image_url" class="form-label">Insert an image url</label>
                 <input type="text" id="image_url" name="image_url" class="form-control" value="{{$post ? old('image_url', $post->image_url) : old('image_url')}}">
+            </div> --}}
+            
+            <div class="col-12 mb-3">
+                <label for="image" class="form-label">Immagine</label>
+                <input type="file" id="image" name="image" class="form-control" value="{{$post ? old('image', $post->image_url) : old('image')}}">
             </div>
+
             <div class="col-12 mb-3">
                 <label for="category_id" class="form-label">Select a category</label>
                 <select id="category_id" name="category_id">
