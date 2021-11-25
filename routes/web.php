@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,12 @@ Route::namespace('Guests')
     Route::resource('/', PostController::class)->only([
         'index','show'
     ]);
+
+    Route::name('emails.')->prefix('emails')->group(function(){
+        Route::get('/contacts', 'LeadController@createForm')->name('createForm');
+        Route::post('/contacts', 'LeadController@storeForm')->name('storeForm');
+        Route::get('/thanks', 'LeadController@thanks')->name('thanks');
+    });
 });
 
 Route::middleware('auth')

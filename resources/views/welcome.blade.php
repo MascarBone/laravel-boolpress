@@ -86,6 +86,7 @@
 
                 <div class="links">
                     <a href="{{ route('admin.posts.index') }}">Posts Page</a>
+                    <a href="{{ route('guests.emails.createForm') }}">Contacts</a>
                 </div>
             </div>
         </div>

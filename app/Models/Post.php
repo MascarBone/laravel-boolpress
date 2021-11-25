@@ -25,4 +25,8 @@ class Post extends Model
     public function tags() {
         return $this->belongsToMany('App\Models\Tag', 'post_tag');
     }
+
+    public function getImgUrl() {
+        return str_starts_with($this->image_url, 'uploads/')  ? asset('storage/') . '/' : "" ;
+    }
 }

@@ -101,11 +101,12 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //Si utilizza $path e la condizione, per settare il percorso che l'img dovrà avere
-        $path = "";
-        if(str_starts_with($post->image_url, 'uploads/'))
-        {
-            $path = asset('storage/') . "/";
-        }
+        // $path = "";
+        // if(str_starts_with($post->image_url, 'uploads/'))
+        // {
+        //     $path = asset('storage/') . "/";
+        // }
+        $path = $post->getImgUrl();
 
         return view('admin.posts.show', compact('post','path'));
     }
