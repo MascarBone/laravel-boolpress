@@ -36,6 +36,6 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.body');
+        return $this->from($this->lead->email, 'Boolpress')->view('emails.body');
     }
 }
