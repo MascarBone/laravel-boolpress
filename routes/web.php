@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::namespace('Guests')
 ->prefix('guests')
@@ -35,7 +35,7 @@ Route::namespace('Guests')
     });
 });
 
-Route::middleware('auth')
+Route::middleware('auth')->middleware('verified')
 ->namespace('Admin')
 ->prefix('admin')
 ->name('admin.')
